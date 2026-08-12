@@ -52,6 +52,13 @@
   zramSwap.enable = true;
 
   # Packages + fonts
-  environment.systemPackages = with pkgs; [ ghostty git vim ];
+  environment.systemPackages = with pkgs; [
+    ghostty
+    git
+    vim
+    yazi
+    tmux
+    qutebrowser
+  ];
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 }
