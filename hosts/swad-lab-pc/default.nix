@@ -26,6 +26,12 @@
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
+  # The Logitech receiver's mouse endpoint also registers a kbd handler,
+  # so grab the keyboard endpoint explicitly.
+  swad.mouseless.devices = [
+    "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
+  ];
+
   # efibootmgr for boot-order management
   environment.systemPackages = with pkgs; [ efibootmgr ];
 

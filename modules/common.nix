@@ -45,8 +45,10 @@
     };
   };
 
-  # Niri config lives in its own file
-  imports = [ ./niri-config.nix ];
+  imports = [
+    ./niri-config.nix
+    ./mouseless.nix
+  ];
 
   # Compressed RAM swap
   zramSwap.enable = true;
