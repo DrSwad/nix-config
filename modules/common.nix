@@ -48,6 +48,7 @@
   imports = [
     ./niri-config.nix
     ./mouseless.nix
+    ./tailscale.nix
   ];
 
   # Compressed RAM swap
