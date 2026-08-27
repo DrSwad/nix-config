@@ -34,6 +34,10 @@
     };
   };
 
+  # Mosh: roaming/latency-tolerant shell over SSH auth.
+  # Opens UDP 60000-61000 via programs.mosh.openFirewall (default true).
+  programs.mosh.enable = true;
+
   # Niri + greeter
   programs.niri.enable = true;
   systemd.user.services.niri.enableDefaultPath = false;
