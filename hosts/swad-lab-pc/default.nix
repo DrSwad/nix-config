@@ -35,5 +35,13 @@
   # efibootmgr for boot-order management
   environment.systemPackages = with pkgs; [ efibootmgr ];
 
+  # Working with MCU
+  services.udev.extraRules = ''
+    # TI eZ-FET / MSP-FET, application mode (CDC) and BSL mode (HID)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2047", MODE="0660", GROUP="dialout"
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="2047", MODE="0660", GROUP="dialout"
+    SUBSYSTEM=="tty", ATTRS{idVendor}=="2047", MODE="0660", GROUP="dialout"
+  '';
+
   system.stateVersion = "26.05";
 }
