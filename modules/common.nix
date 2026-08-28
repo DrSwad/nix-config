@@ -12,6 +12,12 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "us";
 
+  # Default editor: yazi's built-in "edit" opener runs ${EDITOR:-vi}
+  environment.variables = {
+    EDITOR = "vim";
+    VISUAL = "vim";
+  };
+
   # User
   users.users.swad = {
     isNormalUser = true;
