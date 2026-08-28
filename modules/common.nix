@@ -16,7 +16,7 @@
   users.users.swad = {
     isNormalUser = true;
     description = "Swad";
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "dialout" ];
     initialPassword = "changeme";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKX9zPPdXu6yfDNrklOgRm+Hj3Y3Ad5gVTRonvRIwaK swad-personal-laptop"
@@ -53,6 +53,7 @@
     ./niri-config.nix
     ./mouseless.nix
     ./tailscale.nix
+    ./tmux.nix
   ];
 
   # Compressed RAM swap
@@ -64,7 +65,6 @@
     git
     vim
     yazi
-    tmux
     qutebrowser
   ];
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
