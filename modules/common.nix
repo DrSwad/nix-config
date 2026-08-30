@@ -23,6 +23,14 @@
     isNormalUser = true;
     description = "Swad";
     extraGroups = [ "wheel" "networkmanager" "video" "dialout" ];
+
+    # Treat this user as logged in from boot to shutdown, so /run/user/1000 and
+    # systemd --user exist continuously. Without it that tmpfs is torn down when
+    # the last session closes, which deletes the tmux socket while the server
+    # keeps running — reattaching becomes impossible. Also what lets detached
+    # sessions outlive exiting niri.
+    linger = true;
+
     initialPassword = "changeme";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKX9zPPdXu6yfDNrklOgRm+Hj3Y3Ad5gVTRonvRIwaK swad-personal-laptop"
