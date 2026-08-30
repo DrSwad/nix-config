@@ -26,14 +26,28 @@
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
+  # efibootmgr for boot-order management
+  environment.systemPackages = with pkgs; [ efibootmgr ];
+
+  system.stateVersion = "26.05";
+
   # The Logitech receiver's mouse endpoint also registers a kbd handler,
   # so grab the keyboard endpoint explicitly.
   swad.mouseless.devices = [
     "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
   ];
 
-  # efibootmgr for boot-order management
-  environment.systemPackages = with pkgs; [ efibootmgr ];
+  # Two identical Odyssey G5s, matched on serial rather than connector so that
+  # swapping DisplayPort cables can't reverse the monitor direction binds.
+  swad.niri.outputs = ''
+    output "Samsung Electric Company Odyssey G5 HNBL604703" {
+      position x=0 y=0
+    }
+
+    output "Samsung Electric Company Odyssey G5 HNBL604708" {
+      position x=2560 y=0
+    }
+  '';
 
   # Working with MCU
   services.udev.extraRules = ''
@@ -42,6 +56,4 @@
     SUBSYSTEM=="hidraw", ATTRS{idVendor}=="2047", MODE="0660", GROUP="dialout"
     SUBSYSTEM=="tty", ATTRS{idVendor}=="2047", MODE="0660", GROUP="dialout"
   '';
-
-  system.stateVersion = "26.05";
 }
