@@ -23,6 +23,12 @@
     isNormalUser = true;
     description = "Swad";
     extraGroups = [ "wheel" "networkmanager" "video" "dialout" ];
+    shell = pkgs.zsh;
+    initialPassword = "changeme";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKX9zPPdXu6yfDNrklOgRm+Hj3Y3Ad5gVTRonvRIwaK swad-personal-laptop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEx1hH1EXOBAAKyWDue3jI2KMMlTSUITc9GZE0utgHx7 wp100"
+    ];
 
     # Treat this user as logged in from boot to shutdown, so /run/user/1000 and
     # systemd --user exist continuously. Without it that tmpfs is torn down when
@@ -30,12 +36,6 @@
     # keeps running — reattaching becomes impossible. Also what lets detached
     # sessions outlive exiting niri.
     linger = true;
-
-    initialPassword = "changeme";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKX9zPPdXu6yfDNrklOgRm+Hj3Y3Ad5gVTRonvRIwaK swad-personal-laptop"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEx1hH1EXOBAAKyWDue3jI2KMMlTSUITc9GZE0utgHx7 wp100"
-    ];
   };
 
   # SSH: key-only
@@ -66,6 +66,7 @@
   imports = [
     ./niri-config.nix
     ./mouseless.nix
+    ./shell.nix
     ./tailscale.nix
     ./tmux.nix
   ];
