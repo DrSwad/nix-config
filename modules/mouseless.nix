@@ -31,7 +31,7 @@ in
     # udev rule that makes /dev/uinput writable by that group.
     hardware.uinput.enable = true;
 
-    # nixpkgs ships mouseless 0.2.0. mod-layer, devicesExclude, and selecting
+    # NIXPKGS-PIN: nixpkgs ships mouseless 0.2.0. mod-layer, devicesExclude, and selecting
     # devices by name all need 0.3.0, so they're avoided below.
     environment.etc."mouseless/config.yaml".text = ''
       ${devicesYaml}baseMouseSpeed: 750.0
