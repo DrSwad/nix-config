@@ -66,9 +66,11 @@
   imports = [
     ./niri-config.nix
     ./mouseless.nix
+    ./remotes.nix
     ./shell.nix
     ./tailscale.nix
     ./tmux.nix
+    ./yazi.nix
   ];
 
   # Compressed RAM swap
@@ -79,7 +81,6 @@
     ghostty
     git
     vim
-    yazi
     qutebrowser
   ];
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];

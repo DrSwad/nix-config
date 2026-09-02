@@ -1,6 +1,7 @@
 { ... }:
 
 {
+  # Note: modules/yazi.nix also contributes to interactiveShellInit.
   programs.zsh = {
     enable = true;
 

@@ -49,6 +49,31 @@
     }
   '';
 
+  # Lab machines and personal laptop: aliases feed both ~/.ssh usage and yazi's startup tabs.
+  swad.remotes = [
+    {
+      name = "pc";
+      host = "macbook-pro-2021";
+      user = "drswad";
+      openTab = false;
+    }
+    {
+      name = "uislab-spark-1";
+      host = "10.200.47.242";
+      user = "uislab";
+    }
+    {
+      name = "uislab-spark-2";
+      host = "10.200.47.243";
+      user = "uislab";
+    }
+    {
+      name = "uislab-spark-3";
+      host = "10.200.43.191";
+      user = "uis-lab";
+    }
+  ];
+
   # Working with MCU
   services.udev.extraRules = ''
     # TI eZ-FET / MSP-FET, application mode (CDC) and BSL mode (HID)
