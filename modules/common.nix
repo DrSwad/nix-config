@@ -64,6 +64,7 @@
   };
 
   imports = [
+    ./lazygit.nix
     ./niri-config.nix
     ./mouseless.nix
     ./remotes.nix
