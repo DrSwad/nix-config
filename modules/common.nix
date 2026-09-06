@@ -67,6 +67,7 @@
     ./lazygit.nix
     ./niri-config.nix
     ./mouseless.nix
+    ./pueue.nix
     ./remotes.nix
     ./shell.nix
     ./tailscale.nix
