@@ -65,8 +65,9 @@
 
   imports = [
     ./lazygit.nix
-    ./niri-config.nix
+    ./lock.nix
     ./mouseless.nix
+    ./niri-config.nix
     ./pueue.nix
     ./remotes.nix
     ./shell.nix

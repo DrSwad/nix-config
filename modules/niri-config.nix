@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.swad.niri;
@@ -41,6 +41,7 @@ in
         Mod+Q { close-window; }
         Print { screenshot; }
         Mod+Shift+E { quit; }
+        Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "${pkgs.swaylock}/bin/swaylock" "-f" "-c" "1a1a1a"; }
 
         Mod+Left  { focus-column-left; }
         Mod+Right { focus-column-right; }
