@@ -81,6 +81,7 @@
 
   # Packages + fonts
   environment.systemPackages = with pkgs; [
+    bitwarden-cli
     ghostty
     git
     qutebrowser
