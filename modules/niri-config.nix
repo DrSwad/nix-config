@@ -37,10 +37,12 @@ in
       }
       binds {
         Mod+Shift+Slash { show-hotkey-overlay; }
-        Mod+Return hotkey-overlay-title="Terminal: ghostty" { spawn "ghostty"; }
-        Mod+Q { close-window; }
-        Print { screenshot; }
         Mod+Shift+E { quit; }
+        Print { screenshot; }
+
+        Mod+Return hotkey-overlay-title="Terminal: ghostty" { spawn "ghostty"; }
+        Mod+Space hotkey-overlay-title="App Launcher: rofi" { spawn "rofi" "-show" "drun"; }
+        Mod+Q { close-window; }
         Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "${pkgs.swaylock}/bin/swaylock" "-f" "-c" "1a1a1a"; }
 
         Mod+Left  { focus-column-left; }

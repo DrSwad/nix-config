@@ -83,8 +83,9 @@
   environment.systemPackages = with pkgs; [
     ghostty
     git
-    vim
     qutebrowser
+    rofi
+    vim
   ];
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 }
