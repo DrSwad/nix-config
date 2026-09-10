@@ -88,6 +88,7 @@
     qutebrowser
     rofi
     vim
+    wl-clipboard
   ];
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 }

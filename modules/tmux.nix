@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.tmux = {
@@ -25,15 +25,13 @@
       bind -T copy-mode-vi v   send -X begin-selection
       bind -T copy-mode-vi V   send -X select-line
       bind -T copy-mode-vi C-v send -X rectangle-toggle
-      bind -T copy-mode-vi y   send -X copy-selection-and-cancel
+      bind -T copy-mode-vi y   send -X copy-pipe-and-cancel '${pkgs.wl-clipboard}/bin/wl-copy'
 
-      # Copies leave over OSC 52, so they reach the clipboard of whichever
-      # machine you're sitting at, ssh included, with no wl-clipboard needed.
-      # terminal-features, not terminal-overrides: the latter sets the Ms
-      # capability string without the flag tmux gates emission on, which looks
-      # correct in `tmux info` while silently sending nothing.
-      set -s set-clipboard on
-      set -as terminal-features ',xterm-ghostty:clipboard'
+      # copy-pipe jobs run with the *session* environment, and tmux only
+      # refreshes the variables named here when a client attaches. Without
+      # WAYLAND_DISPLAY, wl-copy fails inside a server that outlived a
+      # compositor restart.
+      set -ga update-environment WAYLAND_DISPLAY
     '';
   };
 }
