@@ -84,6 +84,7 @@
     bitwarden-cli
     ghostty
     git
+    joplin-desktop
     qutebrowser
     rofi
     vim
