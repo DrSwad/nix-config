@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
+  imports = [
+    ./home-manager.nix
+    ./mouseless.nix
+    ./niri.nix
+    ./remotes.nix
+    ./tailscale.nix
+  ];
+
   # Nix flakes + unfree
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
@@ -12,11 +20,10 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "us";
 
-  # Default editor: yazi's built-in "edit" opener runs ${EDITOR:-vi}
-  environment.variables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
-  };
+  # Login shell registration only — the configuration lives in home/modules/shell.nix.
+  # enableGlobalCompInit off because HM's zsh module runs compinit itself.
+  programs.zsh.enable = true;
+  programs.zsh.enableGlobalCompInit = false;
 
   # User
   users.users.swad = {
@@ -53,43 +60,10 @@
   # Opens UDP 60000-61000 via programs.mosh.openFirewall (default true).
   programs.mosh.enable = true;
 
-  # Niri + greeter
-  programs.niri.enable = true;
-  systemd.user.services.niri.enableDefaultPath = false;
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
-      user = "greeter";
-    };
-  };
-
-  imports = [
-    ./lazygit.nix
-    ./lock.nix
-    ./mouseless.nix
-    ./niri-config.nix
-    ./pueue.nix
-    ./remotes.nix
-    ./shell.nix
-    ./tailscale.nix
-    ./tmux.nix
-    ./yazi.nix
-  ];
-
   # Compressed RAM swap
   zramSwap.enable = true;
 
-  # Packages + fonts
-  environment.systemPackages = with pkgs; [
-    bitwarden-cli
-    ghostty
-    git
-    joplin-desktop
-    qutebrowser
-    rofi
-    vim
-    wl-clipboard
-  ];
+  # System-wide: everything user-facing lives in home/modules/packages.nix.
+  environment.systemPackages = with pkgs; [ vim ];
   fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
 }

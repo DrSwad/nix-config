@@ -1,8 +1,5 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
-let
-  cfg = config.swad.remotes;
-in
 {
   options.swad.remotes = lib.mkOption {
     type = lib.types.listOf (lib.types.submodule {
@@ -75,23 +72,5 @@ in
       isn't on that network leaves this empty and gets no aliases and no
       remote tabs, rather than three connections that always fail.
     '';
-  };
-
-  config = {
-    # Prepended to /etc/ssh/ssh_config. ssh keeps the *first* value it finds
-    # for each parameter, so prepending means these win over the defaults
-    # NixOS appends after them.
-    #
-    # System-wide rather than ~/.ssh/config: NixOS has no per-user ssh module
-    # without home-manager. `ssh uislab-spark-1` behaves identically, but note
-    # the file is shared with every account on the box, root included.
-    programs.ssh.extraConfig = lib.concatMapStrings (r: ''
-      Host ${r.name}
-          HostName ${r.host}
-          User ${r.user}
-          Port ${toString r.port}
-          IdentityFile ${r.identityFile}
-
-    '') cfg;
   };
 }

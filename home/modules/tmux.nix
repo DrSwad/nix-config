@@ -4,12 +4,13 @@
   programs.tmux = {
     enable = true;
 
+    prefix = "M-Space";
     keyMode = "vi";
 
     # prefix + hjkl moves between panes, prefix + HJKL resizes them.
     customPaneNavigationAndResize = true;
 
-    # This option defaults to "screen", which costs truecolor and italics.
+    # Defaults to "screen", which costs truecolor and italics.
     terminal = "tmux-256color";
 
     # How long tmux waits after Esc to see whether an escape sequence follows.
@@ -17,10 +18,6 @@
     escapeTime = 10;
 
     extraConfig = ''
-      # programs.tmux.shortcut can't express this — it hardcodes "C-" ahead of
-      # whatever it's given. extraConfig is appended last, so this wins.
-      set -g prefix M-Space
-
       # v defaults to rectangle-toggle rather than starting a selection.
       bind -T copy-mode-vi v   send -X begin-selection
       bind -T copy-mode-vi V   send -X select-line

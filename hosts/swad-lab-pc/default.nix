@@ -1,10 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
     ../../modules/common.nix
     ./hardware-configuration.nix
   ];
+
+  home-manager.users.swad = import ../../home/swad.nix;
 
   # Boot (UEFI, systemd-boot)
   boot.loader.systemd-boot.enable = true;

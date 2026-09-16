@@ -1,9 +1,20 @@
 { ... }:
 
 {
-  # Settings land in /etc/xdg/lazygit/config.yml, not ~/.config/lazygit/, which
-  # leaves that directory writable for state.yml — recent repos, panel sizes,
-  # diff context size — that lazygit rewrites constantly.
+  programs.git = {
+    enable = true;
+
+    settings = {
+      user.name = "Nayeemul Islam Swad";
+      user.email = "swad.mailbox@gmail.com";
+
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+      url."https://github.com/".insteadOf = "git://github.com/";
+    };
+  };
+
   programs.lazygit = {
     enable = true;
 
@@ -19,8 +30,8 @@
         # already defaults true, but does nothing until this is non-empty.
         nerdFontsVersion = "3";
 
-        # These fire on every A and every R. Both are part of the routine
-        # amend-and-force-push loop, so the confirmation is just a keystroke.
+        # These fire on every A and every R, both part of the routine
+        # amend-and-force-push loop.
         skipAmendWarning = true;
         skipRewordInEditorWarning = true;
 
