@@ -28,6 +28,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKX9zPPdXu6yfDNrklOgRm+Hj3Y3Ad5gVTRonvRIwaK swad-personal-laptop"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEx1hH1EXOBAAKyWDue3jI2KMMlTSUITc9GZE0utgHx7 wp100"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLz3t1Yrgdbh/XGllJDsUHeu94joyx+5B/Os4QaFKmL ipad-mini"
     ];
 
     # Treat this user as logged in from boot to shutdown, so /run/user/1000 and
