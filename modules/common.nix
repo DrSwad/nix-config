@@ -59,6 +59,7 @@
   # Mosh: roaming/latency-tolerant shell over SSH auth.
   # Opens UDP 60000-61000 via programs.mosh.openFirewall (default true).
   programs.mosh.enable = true;
+  environment.variables.MOSH_SERVER_NETWORK_TMOUT = "86400";
 
   # Compressed RAM swap
   zramSwap.enable = true;
