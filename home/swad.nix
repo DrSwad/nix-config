@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./modules/claude-code.nix
     ./modules/git.nix
     ./modules/niri.nix
     ./modules/packages.nix

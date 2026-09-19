@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./claude-code.nix
     ./home-manager.nix
     ./mouseless.nix
     ./niri.nix
