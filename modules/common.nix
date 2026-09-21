@@ -68,5 +68,5 @@
 
   # System-wide: everything user-facing lives in home/modules/packages.nix.
   environment.systemPackages = with pkgs; [ vim ];
-  fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+  fonts.packages = with pkgs; [ fira-math fira-sans nerd-fonts.jetbrains-mono ];
 }

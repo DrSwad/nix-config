@@ -10,6 +10,7 @@
     ./modules/shell.nix
     ./modules/ssh.nix
     ./modules/tmux.nix
+    ./modules/typst.nix
     ./modules/yazi.nix
   ];
 
