@@ -38,6 +38,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEx1hH1EXOBAAKyWDue3jI2KMMlTSUITc9GZE0utgHx7 wp100"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLz3t1Yrgdbh/XGllJDsUHeu94joyx+5B/Os4QaFKmL ipad-mini"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBQ4GtZKoYGp7tqTYuzT2WweQVB+731A/r1ov61DyV5Z wasif-lab-pc"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFx045Ab42wd0amhIne/YXT47X9lI32HANHlSlid0M9C wasif-home-laptop"
     ];
 
     # Treat this user as logged in from boot to shutdown, so /run/user/1000 and
