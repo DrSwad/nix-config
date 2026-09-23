@@ -4,6 +4,7 @@
   imports = [
     ./claude-code.nix
     ./home-manager.nix
+    ./joplin-desktop.nix
     ./mouseless.nix
     ./niri.nix
     ./remotes.nix
