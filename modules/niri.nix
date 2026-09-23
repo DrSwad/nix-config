@@ -23,6 +23,16 @@
     '';
   };
 
+  options.swad.niri.previewOutput = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    example = "DP-1";
+    description = ''
+      Output that preview windows, e.g. the manim-slides presenter, open on.
+      Named as in `outputs`. Null opens them on the focused output.
+    '';
+  };
+
   config = {
     programs.niri.enable = true;
     systemd.user.services.niri.enableDefaultPath = false;

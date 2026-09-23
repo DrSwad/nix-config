@@ -50,6 +50,8 @@
       position x=2560 y=0
     }
   '';
+  # Left monitor; the editor lives on the right.
+  swad.niri.previewOutput = "Samsung Electric Company Odyssey G5 HNBL604703";
 
   # Lab machines and personal laptop: aliases feed both ~/.ssh usage and yazi's startup tabs.
   swad.remotes = [

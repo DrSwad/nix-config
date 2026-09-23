@@ -4,6 +4,7 @@
   imports = [
     ./modules/claude-code.nix
     ./modules/git.nix
+    ./modules/manim.nix
     ./modules/neovim
     ./modules/niri.nix
     ./modules/packages.nix
