@@ -11,6 +11,7 @@
     ./modules/pueue.nix
     ./modules/shell.nix
     ./modules/ssh.nix
+    ./modules/theme.nix
     ./modules/tmux.nix
     ./modules/typst.nix
     ./modules/yazi.nix
