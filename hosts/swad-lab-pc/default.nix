@@ -3,6 +3,7 @@
 {
   imports = [
     ../../modules/common.nix
+    ../../modules/ollama.nix
     ./hardware-configuration.nix
   ];
 
@@ -38,6 +39,8 @@
   swad.mouseless.devices = [
     "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
   ];
+
+  swad.hermes.bindHost = "swad-lab-pc.tail979fe.ts.net";
 
   # Two identical Odyssey G5s, matched on serial rather than connector so that
   # swapping DisplayPort cables can't reverse the monitor direction binds.
