@@ -14,5 +14,8 @@
 
     # A file HM would otherwise refuse to overwrite is moved aside instead.
     backupFileExtension = "hm-bak";
+
+    # home/modules/hermes.nix imports a module that ships with a flake input.
+    extraSpecialArgs = { inherit inputs; };
   };
 }
