@@ -4,6 +4,8 @@
   imports = [
     ./modules/claude-code.nix
     ./modules/git.nix
+    ./modules/hermes.nix
+    ./modules/hermes-unlock.nix
     ./modules/manim.nix
     ./modules/neovim
     ./modules/niri.nix
