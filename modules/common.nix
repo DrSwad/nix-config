@@ -2,13 +2,14 @@
 
 {
   imports = [
-    ./claude-code.nix
+    ./hermes.nix
     ./home-manager.nix
     ./joplin-desktop.nix
     ./mouseless.nix
     ./niri.nix
     ./remotes.nix
     ./tailscale.nix
+    ./unstable.nix
   ];
 
   # Nix flakes + unfree
