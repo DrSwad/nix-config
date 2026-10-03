@@ -7,6 +7,7 @@
     ./joplin-desktop.nix
     ./mouseless.nix
     ./niri.nix
+    ./phonecam.nix
     ./remotes.nix
     ./tailscale.nix
     ./unstable.nix
