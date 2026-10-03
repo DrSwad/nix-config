@@ -1,5 +1,15 @@
 { pkgs, ... }:
 
+let
+  # Takes WAYLAND_DISPLAY from the systemd user manager, where niri publishes
+  # it, rather than from tmux's session environment: a server started over
+  # ssh never had it, and wl-copy then fails silently.
+  wlCopy = pkgs.writeShellScript "tmux-wl-copy" ''
+    WAYLAND_DISPLAY=$(${pkgs.systemd}/bin/systemctl --user show-environment | ${pkgs.gnused}/bin/sed -n 's/^WAYLAND_DISPLAY=//p')
+    export WAYLAND_DISPLAY
+    exec ${pkgs.wl-clipboard}/bin/wl-copy
+  '';
+in
 {
   programs.tmux = {
     enable = true;
@@ -22,13 +32,14 @@
       bind -T copy-mode-vi v   send -X begin-selection
       bind -T copy-mode-vi V   send -X select-line
       bind -T copy-mode-vi C-v send -X rectangle-toggle
-      bind -T copy-mode-vi y   send -X copy-pipe-and-cancel '${pkgs.wl-clipboard}/bin/wl-copy'
+      bind -T copy-mode-vi y   send -X copy-pipe-and-cancel '${wlCopy}'
 
-      # copy-pipe jobs run with the *session* environment, and tmux only
-      # refreshes the variables named here when a client attaches. Without
-      # WAYLAND_DISPLAY, wl-copy fails inside a server that outlived a
-      # compositor restart.
-      set -ga update-environment WAYLAND_DISPLAY
+      # A yank also reaches the attached terminal's clipboard via OSC 52,
+      # which is how it gets to a remote machine.
+      # NIXPKGS-PIN: mosh 1.4.0 drops the sequence unless it names the
+      # clipboard ("c"), a field tmux leaves empty. %p1%.0s consumes that
+      # parameter at zero width; leaving it out makes tmux >= 3.4 send nothing.
+      set -as terminal-overrides ',*:Ms=\E]52;c%p1%.0s;%p2%s\007'
     '';
   };
 }
