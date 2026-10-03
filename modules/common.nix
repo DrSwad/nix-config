@@ -19,6 +19,8 @@
   # Networking (per-host hostname is set in the host file)
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth.enable = true;
+
   # Locale / time
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "us";
