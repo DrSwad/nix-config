@@ -28,6 +28,12 @@
 | Surround selection | Visual mode, then `S{char}` |
 | Jump (easymotion) | `s`, type a few chars, press the label |
 
+## Clipboard
+
+| Action | Key |
+|---|---|
+| Copy to system clipboard (and to the local terminal's when remote in tmux) | any `y` yank; `d` / `c` / `x` stay in neovim |
+
 ## File tree
 
 | Action | Key |

@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules/claude-code.nix
+    ./modules/clipboard.nix
     ./modules/git.nix
     ./modules/hermes.nix
     ./modules/hermes-unlock.nix

@@ -42,6 +42,20 @@ require('nvim-surround').setup()
 require('flash').setup()
 map({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end)
 
+-- Clipboard: y (not d/c/x) also copies to the system clipboard. An autocmd
+-- rather than 'clipboard', so p never depends on a compositor running.
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    local ev = vim.v.event
+    if ev.operator ~= 'y' or ev.regname ~= '' then return end
+    local text = table.concat(ev.regcontents, '\n') .. (ev.regtype == 'V' and '\n' or '')
+    -- wl-copy stays alive to serve the clipboard, so it must not hold pipes or die with nvim.
+    vim.system({ 'wl-copy-session' }, { stdin = text, stdout = false, stderr = false, detach = true })
+    -- -w makes tmux forward the buffer to the attached terminal via OSC 52.
+    if vim.env.TMUX then vim.system({ 'tmux', 'load-buffer', '-w', '-' }, { stdin = text }) end
+  end,
+})
+
 -- Terminal panel: one bottom split per tabpage; every panel cycles through the same shell buffers.
 local term = { bufs = {} }
 

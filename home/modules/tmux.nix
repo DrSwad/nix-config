@@ -1,15 +1,5 @@
 { pkgs, ... }:
 
-let
-  # Takes WAYLAND_DISPLAY from the systemd user manager, where niri publishes
-  # it, rather than from tmux's session environment: a server started over
-  # ssh never had it, and wl-copy then fails silently.
-  wlCopy = pkgs.writeShellScript "tmux-wl-copy" ''
-    WAYLAND_DISPLAY=$(${pkgs.systemd}/bin/systemctl --user show-environment | ${pkgs.gnused}/bin/sed -n 's/^WAYLAND_DISPLAY=//p')
-    export WAYLAND_DISPLAY
-    exec ${pkgs.wl-clipboard}/bin/wl-copy
-  '';
-in
 {
   programs.tmux = {
     enable = true;
@@ -32,7 +22,7 @@ in
       bind -T copy-mode-vi v   send -X begin-selection
       bind -T copy-mode-vi V   send -X select-line
       bind -T copy-mode-vi C-v send -X rectangle-toggle
-      bind -T copy-mode-vi y   send -X copy-pipe-and-cancel '${wlCopy}'
+      bind -T copy-mode-vi y   send -X copy-pipe-and-cancel wl-copy-session
 
       # A yank also reaches the attached terminal's clipboard via OSC 52,
       # which is how it gets to a remote machine.
