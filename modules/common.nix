@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./hermes.nix
     ./home-manager.nix
     ./joplin-desktop.nix
     ./mouseless.nix

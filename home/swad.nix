@@ -5,12 +5,11 @@
     ./modules/claude-code.nix
     ./modules/clipboard.nix
     ./modules/git.nix
-    ./modules/hermes.nix
-    ./modules/hermes-unlock.nix
     ./modules/manim.nix
     ./modules/neovim
     ./modules/niri.nix
     ./modules/packages.nix
+    ./modules/pi.nix
     ./modules/pueue.nix
     ./modules/shell.nix
     ./modules/ssh.nix

@@ -11,9 +11,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Tier 2 for upstream: main can break the Nix packaging at any time. Bump on
-    # its own and be ready to roll back: nix flake update hermes-agent
-    hermes-agent.url = "github:NousResearch/hermes-agent";
+    # No nixpkgs follows: the package's npmDepsHash is only valid against the
+    # nixpkgs that upstream pins. Bump by changing the tag, then
+    # `nix flake update paseo`, and keep the client apps on a matching version.
+    paseo.url = "github:getpaseo/paseo/v0.10.3";
   };
 
   outputs = { nixpkgs, ... }@inputs: {

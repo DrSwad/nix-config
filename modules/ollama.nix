@@ -1,16 +1,5 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
-let
-  # alias -> model pulled. `ollama cp` only writes a new manifest against the
-  # same blobs, so an alias costs no disk. A bare `qwen` would collide with the
-  # built-in Qwen Cloud provider in hermes' /model command, hence qwen3.
-  aliases = {
-    gemma = "gemma4:12b";
-    qwen3 = "qwen3.8:27b-q8_0";
-  };
-
-  ollama = lib.getExe config.services.ollama.package;
-in
 {
   # Unfree CUDA builds never reach cache.nixos.org; without this, every
   # nixpkgs-unstable bump compiles ollama's CUDA kernels locally.
@@ -29,22 +18,19 @@ in
     # If it builds, cache.nixos-cuda.org hasn't caught up with that rev yet.
     package = pkgs.unstable.ollama-cuda;
 
-    loadModels = lib.attrValues aliases;
+    loadModels = [ "gemma4:12b" "qwen3.8:27b-q8_0" ];
 
     environmentVariables = {
       OLLAMA_KEEP_ALIVE = "15m";
       # The GPU is shared with training, so a model switch must evict, not stack.
       OLLAMA_MAX_LOADED_MODELS = "1";
-      # Hermes refuses to work below 64K.
+      # Pi uses the OpenAI-compatible endpoint, which has no per-request num_ctx,
+      # so this is the only place the window is set. home/modules/pi.nix reads
+      # it as Pi's contextWindow.
       OLLAMA_CONTEXT_LENGTH = "131072";
       # The quantized KV cache is ignored unless flash attention is on.
       OLLAMA_FLASH_ATTENTION = "1";
       OLLAMA_KV_CACHE_TYPE = "q8_0";
     };
   };
-
-  # On the loader rather than the server, so the sources exist first.
-  systemd.services.ollama-model-loader.postStart = lib.concatStrings (
-    lib.mapAttrsToList (alias: model: "${ollama} cp ${model} ${alias} || true\n") aliases
-  );
 }

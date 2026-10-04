@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
     ../../modules/common.nix
     ../../modules/ollama.nix
+    ../../modules/paseo.nix
     ./hardware-configuration.nix
   ];
 
@@ -39,15 +40,6 @@
   swad.mouseless.devices = [
     "/dev/input/by-id/usb-Logitech_USB_Receiver-if01-event-kbd"
   ];
-
-  # NixOS maps the hostname to 127.0.0.2, but the hermes dashboard binds by this
-  # name and only accepts a Host header matching it, so it must resolve to the
-  # same address tailnet peers get from MagicDNS. mkForce replaces the default.
-  networking.hosts = lib.mkForce {
-    "100.86.190.94" = [ "swad-lab-pc" "swad-lab-pc.tail979fe.ts.net" ];
-  };
-
-  swad.hermes.bindHost = "swad-lab-pc";
 
   # Two identical Odyssey G5s, matched on serial rather than connector so that
   # swapping DisplayPort cables can't reverse the monitor direction binds.
