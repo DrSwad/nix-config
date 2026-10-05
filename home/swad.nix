@@ -23,7 +23,8 @@
   # Pins HM's stateful defaults. Set once, never bumped.
   home.stateVersion = "26.05";
 
-  # HM restarts changed user units during activation, so a pueue config edit
-  # takes effect on `nixos-rebuild switch` alone.
+  # HM restarts user units whose unit file changed. pueue.yml is not part of
+  # pueued's unit, so daemon-side settings there need a manual
+  # `systemctl --user restart pueued`, which kills running tasks.
   systemd.user.startServices = "sd-switch";
 }

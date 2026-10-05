@@ -2,6 +2,14 @@
 
 let
   yaml = pkgs.formats.yaml { };
+
+  # Tasks carry the environment of the `pueue add` that queued them, but are
+  # spawned by the daemon, outside any sandbox the client was in. A sandboxed
+  # shell (e.g. a buildFHSEnv dev shell) exports PUEUE_TASK_SHELL, a program
+  # accepting `-c <string>`, so its tasks re-enter the sandbox.
+  taskShell = pkgs.writeShellScript "pueue-task-shell" ''
+    exec "''${PUEUE_TASK_SHELL:-${pkgs.runtimeShell}}" -c "$1"
+  '';
 in
 {
   # pueue: queue shell commands, run them one at a time, inspect them later.
@@ -26,6 +34,8 @@ in
       # file per property and expects an editor with a built-in file tree.
       edit_mode = "toml";
     };
+
+    daemon.shell_command = [ "${taskShell}" "{{ pueue_command_string }}" ];
   };
 
   # users.users.swad.linger in modules/common.nix is what starts this at boot and
