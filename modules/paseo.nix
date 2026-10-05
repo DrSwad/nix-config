@@ -39,7 +39,15 @@
     # Clients connect directly over the tailnet.
     relay.enable = false;
 
-    environment.PASEO_WEB_UI_ENABLED = "true";
+    environment = {
+      PASEO_WEB_UI_ENABLED = "true";
+
+      # HM's tmux module keeps the socket under the runtime dir, which only
+      # login shells learn about. Without this, agents following
+      # home/modules/pi-rules.md start a second server under /tmp. 1000 is
+      # swad's uid; linger keeps the directory present from boot.
+      TMUX_TMPDIR = "/run/user/1000";
+    };
   };
 
   # PASEO_PASSWORD=…, untracked and 0600. Plaintext; the daemon hashes it at startup.

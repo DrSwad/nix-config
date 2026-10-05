@@ -66,6 +66,11 @@ in
     };
   };
 
+  # A store symlink on purpose: agents can patch skills, not their standing
+  # rules. The source is not named AGENTS.md, or Pi would also load it as
+  # project context when working under home/modules.
+  home.file.".pi/agent/AGENTS.md".source = ./pi-rules.md;
+
   # Merged rather than linked: Pi writes this file (/model defaults, /settings),
   # which a store symlink would break. The keys above win on every activation,
   # so `pi install` does not survive a rebuild; add packages here instead.
