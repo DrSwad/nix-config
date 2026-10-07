@@ -9,6 +9,18 @@ let
   remoteTabs = lib.concatMapStrings (r: " sftp://${r.name}") (
     lib.filter (r: r.openTab) remotes
   );
+
+  # A tmux server started outside niri (ssh, paseo) has no WAYLAND_DISPLAY;
+  # same lookup as home/modules/clipboard.nix.
+  zathura = pkgs.writeShellApplication {
+    name = "zathura-session";
+    runtimeInputs = [ pkgs.gnused pkgs.systemd pkgs.zathura ];
+    text = ''
+      WAYLAND_DISPLAY=$(systemctl --user show-environment | sed -n 's/^WAYLAND_DISPLAY=//p')
+      export WAYLAND_DISPLAY
+      exec zathura "$@"
+    '';
+  };
 in
 {
   programs.yazi = {
@@ -38,6 +50,15 @@ in
       plugin.prepend_fetchers = [
         { url = "local://*"; run = "git"; group = "git"; }
         { url = "local://*/"; run = "git"; group = "git"; }
+      ];
+
+      # orphan: zathura outlives yazi.
+      opener.pdf = [
+        { run = "${lib.getExe zathura} %s"; desc = "zathura"; orphan = true; }
+      ];
+
+      open.prepend_rules = [
+        { mime = "application/pdf"; use = [ "pdf" "reveal" ]; }
       ];
     };
 
