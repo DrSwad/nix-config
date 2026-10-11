@@ -20,6 +20,18 @@
           IdentityFile = r.identityFile;
         }
       ) osConfig.swad.remotes
-    );
+    ) // {
+      # DCSS console server; not in swad.remotes, which would also register it
+      # with yazi as an sftp service. cao_key is the servers' shared login key,
+      # kept untracked:
+      #   curl -o ~/.ssh/cao_key http://crawl.akrasiac.org/cao_key && chmod 600 ~/.ssh/cao_key
+      crg = {
+        HostName = "crawl.roguelikes.gg";
+        User = "crawl";
+        Port = 222;
+        IdentityFile = "~/.ssh/cao_key";
+        IdentitiesOnly = "yes";
+      };
+    };
   };
 }
