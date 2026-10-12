@@ -35,7 +35,7 @@ in
     # devices by name all need 0.3.0, so they're avoided below.
     environment.etc."mouseless/config.yaml".text = ''
       ${devicesYaml}baseMouseSpeed: 750.0
-      baseScrollSpeed: 20.0
+      baseScrollSpeed: 30.0
 
       layers:
         - name: initial
@@ -55,8 +55,8 @@ in
             u: scroll up
             n: scroll down
 
-            f: button left
-            d: button right
+            d: button left
+            f: button right
             s: button middle
 
             leftshift: speed 2.5
