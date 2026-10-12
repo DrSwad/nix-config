@@ -1,4 +1,4 @@
-{ lib, osConfig, ... }:
+{ lib, osConfig, pkgs, ... }:
 
 {
   programs.ssh = {
@@ -34,4 +34,34 @@
       };
     };
   };
+
+  # CRG's sshd drops DGLAUTH, so dgamelaunch's own autologin can't be used;
+  # the prompts are answered instead. ~/.ssh/crg_auth (untracked, 0600) holds
+  # the username on line 1 and the password on line 2.
+  home.packages = [
+    (pkgs.writeScriptBin "crg" ''
+      #!${pkgs.expect}/bin/expect -f
+      set f [open $env(HOME)/.ssh/crg_auth]
+      lassign [split [read -nonewline $f] "\n"] user pass
+      close $f
+
+      set timeout 15
+      proc step {pat reply} {
+        expect {
+          -nocase $pat { send -- $reply }
+          timeout { interact; exit }
+          eof { exit 1 }
+        }
+      }
+
+      spawn -noecho ssh crg
+      trap {
+        stty rows [stty rows] columns [stty columns] < $spawn_out(slave,name)
+      } WINCH
+      step "login" "l"
+      step "enter your username" "$user\r"
+      step "enter your password" "$pass\r"
+      interact
+    '')
+  ];
 }
