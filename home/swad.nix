@@ -5,6 +5,7 @@
     ./modules/claude-code.nix
     ./modules/clipboard.nix
     ./modules/gh.nix
+    ./modules/ghostty.nix
     ./modules/git.nix
     ./modules/manim.nix
     ./modules/neovim

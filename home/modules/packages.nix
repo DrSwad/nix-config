@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     bitwarden-cli
-    ghostty
     joplin-desktop
     localsend
     qutebrowser
