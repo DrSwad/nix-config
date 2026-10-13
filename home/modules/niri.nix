@@ -22,6 +22,7 @@
       Mod+Q { close-window; }
       Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "${pkgs.swaylock}/bin/swaylock" "-f" "-c" "1a1a1a"; }
       Mod+T hotkey-overlay-title="Switch Goal: goal" { spawn "goal" "switch"; }
+      Mod+V hotkey-overlay-title="Clipboard History: clip" { spawn "clip"; }
 
       Mod+Left  { focus-column-left; }
       Mod+Right { focus-column-right; }
@@ -49,8 +50,8 @@
       Mod+2 { focus-workspace 2; }
       Mod+3 { focus-workspace 3; }
 
-      Mod+V       { toggle-window-floating; }
-      Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+      Mod+W       { toggle-window-floating; }
+      Mod+Shift+W { switch-focus-between-floating-and-tiling; }
     }
   '';
 }
