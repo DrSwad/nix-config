@@ -5,6 +5,7 @@
     bitwarden-cli
     ghostty
     joplin-desktop
+    localsend
     qutebrowser
     rofi
     vim
