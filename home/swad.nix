@@ -7,6 +7,7 @@
     ./modules/gh.nix
     ./modules/ghostty.nix
     ./modules/git.nix
+    ./modules/goal
     ./modules/manim.nix
     ./modules/neovim
     ./modules/niri.nix

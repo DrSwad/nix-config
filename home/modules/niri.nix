@@ -21,6 +21,7 @@
       Mod+Space hotkey-overlay-title="App Launcher: rofi" { spawn "rofi" "-show" "drun"; }
       Mod+Q { close-window; }
       Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "${pkgs.swaylock}/bin/swaylock" "-f" "-c" "1a1a1a"; }
+      Mod+T hotkey-overlay-title="Switch Goal: goal" { spawn "goal" "switch"; }
 
       Mod+Left  { focus-column-left; }
       Mod+Right { focus-column-right; }

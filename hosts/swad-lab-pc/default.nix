@@ -5,6 +5,7 @@
     ../../modules/common.nix
     ../../modules/ollama.nix
     ../../modules/paseo.nix
+    ../../modules/timetagger.nix
     ./hardware-configuration.nix
   ];
 
