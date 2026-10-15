@@ -30,6 +30,12 @@
       # clipboard ("c"), a field tmux leaves empty. %p1%.0s consumes that
       # parameter at zero width; leaving it out makes tmux >= 3.4 send nothing.
       set -as terminal-overrides ',*:Ms=\E]52;c%p1%.0s;%p2%s\007'
+
+      # yazi image previews (Kitty graphics) reach the outer terminal only via
+      # passthrough, and yazi detects that terminal from these two variables.
+      set -g allow-passthrough on
+      set -ga update-environment TERM
+      set -ga update-environment TERM_PROGRAM
     '';
   };
 }
