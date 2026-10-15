@@ -1,4 +1,4 @@
-{ lib, osConfig, pkgs, ... }:
+{ config, lib, osConfig, pkgs, ... }:
 
 let
   remotes = osConfig.swad.remotes;
@@ -12,17 +12,22 @@ let
 
   # A tmux server started outside niri (ssh, paseo) has no WAYLAND_DISPLAY;
   # same lookup as home/modules/clipboard.nix.
-  zathura = pkgs.writeShellApplication {
-    name = "zathura-session";
-    runtimeInputs = [ pkgs.gnused pkgs.systemd pkgs.zathura ];
+  inSession = name: pkg: pkgs.writeShellApplication {
+    name = "${name}-session";
+    runtimeInputs = [ pkgs.gnused pkgs.systemd pkg ];
     text = ''
       WAYLAND_DISPLAY=$(systemctl --user show-environment | sed -n 's/^WAYLAND_DISPLAY=//p')
       export WAYLAND_DISPLAY
-      exec zathura "$@"
+      exec ${name} "$@"
     '';
   };
+
+  zathura = inSession "zathura" pkgs.zathura;
+  imv = inSession "imv" config.programs.imv.package;
 in
 {
+  programs.imv.enable = true;
+
   programs.yazi = {
     enable = true;
 
@@ -52,13 +57,17 @@ in
         { url = "local://*/"; run = "git"; group = "git"; }
       ];
 
-      # orphan: zathura outlives yazi.
+      # orphan: viewers outlive yazi.
       opener.pdf = [
         { run = "${lib.getExe zathura} %s"; desc = "zathura"; orphan = true; }
+      ];
+      opener.image = [
+        { run = "${lib.getExe imv} %s"; desc = "imv"; orphan = true; }
       ];
 
       open.prepend_rules = [
         { mime = "application/pdf"; use = [ "pdf" "reveal" ]; }
+        { mime = "image/*"; use = [ "image" "reveal" ]; }
       ];
     };
 
