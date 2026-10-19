@@ -11,10 +11,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # No nixpkgs follows: the package's npmDepsHash is only valid against the
-    # nixpkgs that upstream pins. Bump by changing the tag, then
-    # `nix flake update paseo`, and keep the client apps on a matching version.
-    paseo.url = "github:getpaseo/paseo/v0.10.3";
+    # Only the NixOS module is used; the daemon comes from nixpkgs-unstable
+    # (modules/paseo.nix). If a nixpkgs-unstable bump breaks the service,
+    # move this tag to the daemon's version for the matching module.
+    paseo = {
+      url = "github:getpaseo/paseo/v0.11.4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: {

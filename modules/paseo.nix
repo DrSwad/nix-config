@@ -6,23 +6,10 @@
   services.paseo = {
     enable = true;
 
-    # Two v0.10.3 packaging bugs; after bumping the tag, try without each.
-    # - nix/npm-deps.hash is stale: on a hash mismatch, put the "got" value here.
-    # - The install step looks for node-pty's native addon in the root
-    #   node_modules, but npm places it under packages/server, so the terminal
-    #   worker crashes on startup.
-    package =
-      (inputs.paseo.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-        npmDepsHash = "sha256-uG7EkoQMVLk5CzDEbJbR5aPxeq59x4vjF21JGatxD7k=";
-      }).overrideAttrs (old: {
-        postInstall = (old.postInstall or "") + ''
-          pty=packages/server/node_modules/node-pty
-          for f in $pty/build/Release/pty.node $pty/prebuilds/linux-x64/pty.node; do
-            [ -e "$f" ] && install -D "$f" "$out/lib/paseo/$f"
-          done
-          [ -n "$(find $out/lib/paseo/$pty -name pty.node)" ]
-        '';
-      });
+    # NIXPKGS-PIN: from unstable because the paseo flake input's own package
+    # builds from source. Keep the client apps on the version this prints:
+    #   nix eval --raw .#nixosConfigurations.swad-lab-pc.config.services.paseo.package.version
+    package = pkgs.unstable.paseo;
 
     # The login user, so agents see ~/.pi, the repos and the user profile's PATH.
     user = "swad";
