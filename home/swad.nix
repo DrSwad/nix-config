@@ -18,6 +18,7 @@
     ./modules/ssh.nix
     ./modules/theme.nix
     ./modules/tmux.nix
+    ./modules/tuxedo.nix
     ./modules/typst.nix
     ./modules/yazi.nix
   ];
