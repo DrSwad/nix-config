@@ -34,9 +34,13 @@ let
 in
 # Pi only talks to the local ollama, so a host without it gets none of this.
 {
-  # NIXPKGS-PIN: 26.05 is frozen at pi 0.75.4, while Paseo and Pi packages
-  # track current releases. Recheck after the next NixOS release.
-  home.packages = [ pkgs.unstable.pi-coding-agent ];
+  home.packages = [
+    # NIXPKGS-PIN: 26.05 is frozen at pi 0.75.4, while Paseo and Pi packages
+    # track current releases. Recheck after the next NixOS release.
+    pkgs.unstable.pi-coding-agent
+    # Paseo hands PDF attachments to Pi as a path, not content.
+    pkgs.poppler-utils
+  ];
 
   home.file.".pi/agent/models.json".source = json.generate "pi-models.json" {
     providers.ollama = {
@@ -50,12 +54,14 @@ in
         {
           id = "qwen3.8:27b-q8_0";
           reasoning = true;
+          input = [ "text" "image" ];
           inherit contextWindow;
           # Ollama accepts only none/low/medium/high as reasoning_effort.
           thinkingLevelMap = { off = "none"; minimal = null; };
         }
         {
           id = "gemma4:12b";
+          input = [ "text" "image" ];
           inherit contextWindow;
           # With thinking on, gemma4:12b emits a thinking block and stops without
           # an answer or tool call. Ollama thinks unless told otherwise, so

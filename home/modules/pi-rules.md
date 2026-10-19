@@ -14,6 +14,7 @@ Approved in advance:
 - writing a scratch script and running it, provided everything the script does is read-only. If you are not certain of that, ask first;
 - deleting scratch files you created;
 - closing the tmux window you created.
+- converting a file the user attached (under `~/.paseo/uploads`) into text or page images in the scratch directory, e.g. with `pdftotext` or `pdftoppm`;
 
 ## Run commands through tmux
 
