@@ -37,6 +37,12 @@
     };
   };
 
+  # Plugins are untracked state in ~/.paseo. agent-heartbeats is installed
+  # from a local checkout under ~/.local/share because its registry install
+  # fails on 0.11.4 (unresolved @getpaseo/client type import); retry the
+  # registry after bumping. Refreshing the checkout's type-only devDependencies:
+  #   nix shell nixpkgs#nodejs -c npm install --ignore-scripts
+
   # PASEO_PASSWORD=…, untracked and 0600. Plaintext; the daemon hashes it at startup.
   systemd.services.paseo.serviceConfig.EnvironmentFile = "/home/swad/.config/paseo/secrets.env";
 }
