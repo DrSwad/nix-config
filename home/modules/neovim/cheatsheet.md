@@ -16,6 +16,7 @@
 | Action | Key |
 |---|---|
 | Find file in project | `Ctrl+P` |
+| Search text in project | `Space /` |
 | Open in current window / new tab / vertical split | `Enter` / `Ctrl+T` / `Ctrl+V` |
 | Close picker | `Ctrl+C` |
 

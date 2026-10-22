@@ -26,6 +26,7 @@ map('n', '<C-Up>', '<cmd>resize +2<cr>')
 
 -- File search
 map('n', '<C-p>', function() require('telescope.builtin').find_files() end)
+map('n', '<leader>/', function() require('telescope.builtin').live_grep() end)
 
 -- File tree (replaces netrw)
 vim.g.loaded_netrw = 1
