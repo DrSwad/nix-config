@@ -31,6 +31,10 @@
       # parameter at zero width; leaving it out makes tmux >= 3.4 send nothing.
       set -as terminal-overrides ',*:Ms=\E]52;c%p1%.0s;%p2%s\007'
 
+      # The default, "external", drops OSC 52 sent by programs in panes
+      # (tuxedo's yy copies only that way).
+      set -g set-clipboard on
+
       # yazi image previews (Kitty graphics) reach the outer terminal only via
       # passthrough, and yazi detects that terminal from these two variables.
       set -g allow-passthrough on
