@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "auditory-reader": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792883906,
+        "narHash": "sha256-9BpepHmOWAp0xO6ZIG/B+THeNI/dMKcIoQmCSS37w1M=",
+        "ref": "main",
+        "rev": "ad5373787402e2917cc43a2041c23184e8b79b5f",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@github.com/DrSwad/Auditory-Reader"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/DrSwad/Auditory-Reader"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -76,6 +97,7 @@
     },
     "root": {
       "inputs": {
+        "auditory-reader": "auditory-reader",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

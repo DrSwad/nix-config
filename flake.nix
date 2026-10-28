@@ -18,6 +18,11 @@
       url = "github:getpaseo/paseo/v0.11.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    auditory-reader = {
+      url = "git+ssh://git@github.com/DrSwad/Auditory-Reader?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: {

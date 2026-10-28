@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../modules/auditory-reader.nix
     ../../modules/common.nix
     ../../modules/ollama.nix
     ../../modules/paseo.nix
