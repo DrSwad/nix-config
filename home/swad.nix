@@ -4,6 +4,7 @@
   imports = [
     ./modules/claude-code.nix
     ./modules/clipboard.nix
+    ./modules/dictionary.nix
     ./modules/gh.nix
     ./modules/ghostty.nix
     ./modules/git.nix

@@ -23,6 +23,7 @@
       Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "${pkgs.swaylock}/bin/swaylock" "-f" "-c" "1a1a1a"; }
       Mod+T hotkey-overlay-title="Switch Goal: goal" { spawn "goal" "switch"; }
       Mod+V hotkey-overlay-title="Clipboard History: clip" { spawn "clip"; }
+      Mod+D hotkey-overlay-title="Dictionary: define" { spawn "define"; }
 
       Mod+Left  { focus-column-left; }
       Mod+Right { focus-column-right; }
