@@ -1,0 +1,34 @@
+From 7ab86d0cb4eea221ae09e0c5306131080a124da2 Mon Sep 17 00:00:00 2001
+From: neonetizen <justin.pelak7@gmail.com>
+Date: Fri, 1 May 2026 11:51:33 -0700
+Subject: [PATCH] [webengine] fix intermittent "unknown error while getting
+ elements" on Qt 6.11
+
+---
+ qutebrowser/browser/webengine/webenginetab.py | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/qutebrowser/browser/webengine/webenginetab.py b/qutebrowser/browser/webengine/webenginetab.py
+index c1996006a10..ee22dc85f4b 100644
+--- a/qutebrowser/browser/webengine/webenginetab.py
++++ b/qutebrowser/browser/webengine/webenginetab.py
+@@ -780,10 +780,16 @@ def _js_cb_single(self, callback, js_elem):
+ 
+     def find_css(self, selector, callback, error_cb, *,
+                  only_visible=False):
+-        js_code = javascript.assemble('webelem', 'find_css', selector,
+-                                      only_visible)
++        init_code = javascript.wrap_global(
++            'scripts',
++            resources.read_file('javascript/scroll.js'),
++            resources.read_file('javascript/webelem.js'),
++            resources.read_file('javascript/caret.js'),
++        )
++        call_code = javascript.assemble('webelem', 'find_css', selector,
++                                        only_visible)
+         js_cb = functools.partial(self._js_cb_multiple, callback, error_cb)
+-        self._tab.run_js_async(js_code, js_cb)
++        self._tab.run_js_async(init_code + '\n' + call_code, js_cb)
+ 
+     def find_id(self, elem_id, callback):
+         js_code = javascript.assemble('webelem', 'find_id', elem_id)

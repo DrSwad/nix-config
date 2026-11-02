@@ -1,8 +1,16 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.qutebrowser = {
     enable = true;
+
+    # NIXPKGS-PIN: QtWebEngine 6.11 sometimes skips qutebrowser's injected JS
+    # after a navigation (qutebrowser#8925), breaking hints until reload. This is
+    # the unmerged qutebrowser#8940, which covers hints only. Drop it once
+    # `:open -t github.com/qutebrowser/qutebrowser` then `f` shows hints without it.
+    package = pkgs.qutebrowser.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./qutebrowser-qt611-hints.patch ];
+    });
 
     # Untracked autoconfig.yml holds per-site permissions granted from prompts.
     loadAutoconfig = true;
