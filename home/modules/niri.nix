@@ -25,20 +25,20 @@
       Mod+V hotkey-overlay-title="Clipboard History: clip" { spawn "clip"; }
       Mod+D hotkey-overlay-title="Dictionary: define" { spawn "define"; }
 
-      Mod+Left  { focus-column-left; }
-      Mod+Right { focus-column-right; }
-      Mod+Up    { focus-window-up; }
-      Mod+Down  { focus-window-down; }
+      Mod+H  { focus-column-left; }
+      Mod+L { focus-column-right; }
+      Mod+K    { focus-window-up; }
+      Mod+J  { focus-window-down; }
 
-      Mod+Shift+Left  { move-column-left; }
-      Mod+Shift+Right { move-column-right; }
-      Mod+Shift+Up    { move-window-up; }
-      Mod+Shift+Down  { move-window-down; }
+      Mod+Shift+H  { move-column-left; }
+      Mod+Shift+L { move-column-right; }
+      Mod+Shift+K    { move-window-up; }
+      Mod+Shift+J  { move-window-down; }
 
-      Mod+Ctrl+Left  { focus-monitor-left; }
-      Mod+Ctrl+Right { focus-monitor-right; }
-      Mod+Ctrl+Shift+Left  { move-column-to-monitor-left; }
-      Mod+Ctrl+Shift+Right { move-column-to-monitor-right; }
+      Mod+Ctrl+H  { focus-monitor-left; }
+      Mod+Ctrl+L { focus-monitor-right; }
+      Mod+Ctrl+Shift+H  { move-column-to-monitor-left; }
+      Mod+Ctrl+Shift+L { move-column-to-monitor-right; }
 
       Mod+F { maximize-column; }
       Mod+Shift+F { fullscreen-window; }
