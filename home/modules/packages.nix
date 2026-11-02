@@ -5,7 +5,6 @@
     bitwarden-cli
     joplin-desktop
     localsend
-    qutebrowser
     rofi
     vim
     wl-clipboard

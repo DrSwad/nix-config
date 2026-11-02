@@ -15,6 +15,7 @@
     ./modules/packages.nix
     ./modules/pi.nix
     ./modules/pueue.nix
+    ./modules/qutebrowser.nix
     ./modules/shell.nix
     ./modules/ssh.nix
     ./modules/theme.nix
