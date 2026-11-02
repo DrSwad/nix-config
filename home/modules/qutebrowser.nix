@@ -16,5 +16,12 @@
           "*Cannot read properties of undefined (reading 'length')"
       ]
     '';
+
+    # Key presses reach inner scroll containers (e.g. claude.ai's chat); the
+    # default scroll-to-perc only scrolls the document via window.scroll().
+    keyBindings.normal = {
+      gg = "scroll top";
+      G = "scroll bottom";
+    };
   };
 }
