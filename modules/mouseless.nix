@@ -54,6 +54,8 @@ in
 
             u: scroll up
             n: scroll down
+            y: scroll left
+            i: scroll right
 
             d: button left
             f: button right
