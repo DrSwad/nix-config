@@ -12,6 +12,7 @@
 
       # Stable trails upstream by weeks.
       claude-code = final.unstable.claude-code;
+      atuin = final.unstable.atuin;
     })
   ];
 }
