@@ -23,6 +23,7 @@
     initContent = "setopt HIST_FCNTL_LOCK";
   };
 
+  # Sync server is self-hosted outside this repo; keep it at or above this client's version.
   programs.atuin = {
     enable = true;
     # Otherwise `?` on an empty prompt opens Atuin AI, a cloud service.
