@@ -66,6 +66,12 @@
       openTab = false;
     }
     {
+      name = "sol";
+      host = "sol.asu.edu";
+      user = "sislam76";
+      openTab = false;
+    }
+    {
       name = "uislab-spark-1";
       host = "10.200.47.242";
       user = "uislab";
