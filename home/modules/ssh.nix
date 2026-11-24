@@ -1,8 +1,5 @@
 { lib, osConfig, pkgs, ... }:
 
-let
-  sol = lib.findFirst (r: r.name == "sol") null osConfig.swad.remotes;
-in
 {
   programs.ssh = {
     enable = true;
@@ -35,14 +32,6 @@ in
         IdentityFile = "~/.ssh/cao_key";
         IdentitiesOnly = "yes";
       };
-    } // lib.optionalAttrs (sol != null) {
-      # Sol compute nodes: reachable only through the login node, and only
-      # while one of your jobs is running on them.
-      "*.sol.rc.asu.edu" = {
-        User = sol.user;
-        IdentityFile = sol.identityFile;
-        ProxyJump = sol.name;
-      };
     };
   };
 
@@ -74,26 +63,5 @@ in
       step "enter your password" "$pass\r"
       interact
     '')
-  ] ++ lib.optional (sol != null) (
-    # sol-node [-j JOBID|JOBNAME] [COMMAND...]
-    pkgs.writeShellScriptBin "sol-node" ''
-      set -euo pipefail
-      filter=""
-      if [[ ''${1-} == -j ]]; then
-        job=''${2:?usage: sol-node [-j JOBID|JOBNAME] [COMMAND...]}
-        if [[ $job =~ ^[0-9]+$ ]]; then filter="-j $job"; else filter="-n $job"; fi
-        shift 2
-      fi
-      out=$(ssh ${sol.name} "squeue --me -h -t R -o '%N %i %j' $filter")
-      mapfile -t jobs < <(printf '%s' "$out")
-      if (( ''${#jobs[@]} != 1 )); then
-        echo "sol-node: need exactly one running job, found ''${#jobs[@]}:" >&2
-        (( ''${#jobs[@]} )) && printf '  %s\n' "''${jobs[@]}" >&2
-        exit 1
-      fi
-      read -r nodes _ <<<"''${jobs[0]}"
-      node=$(sed -E 's/\[([0-9]+)[^]]*\]/\1/; s/,.*//' <<<"$nodes")
-      exec ssh "$node.sol.rc.asu.edu" "$@"
-    ''
-  );
+  ];
 }

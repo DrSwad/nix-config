@@ -17,6 +17,7 @@
     ./modules/pueue.nix
     ./modules/qutebrowser.nix
     ./modules/shell.nix
+    ./modules/sol.nix
     ./modules/ssh.nix
     ./modules/theme.nix
     ./modules/tmux.nix
