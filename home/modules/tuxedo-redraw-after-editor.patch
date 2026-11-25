@@ -1,0 +1,34 @@
+From afc097e3e30ee1ab83de8c0bd7b82e2dd246732a Mon Sep 17 00:00:00 2001
+From: Julien Vallade <julien.vallade@cnes.Fr>
+Date: Thu, 10 Sep 2026 09:30:41 +0200
+Subject: [PATCH] fix: force TUI redraw after returning from external editor
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Editor launches correctly via `o`/`O`, but on exit the alternate
+screen wasn't being fully repainted — ratatui's internal buffer
+still reflected the pre-editor state, so the list stayed blank/stale
+until a navigation event (j/k) triggered a partial re-render.
+
+Call `terminal.clear()` after re-entering the alternate screen so
+the next draw() forces a full repaint instead of a diff against a
+stale buffer.
+
+Fixes #99
+---
+ src/main.rs | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/main.rs b/src/main.rs
+index 401ac736..eb07a5fc 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -229,6 +229,7 @@ fn run(
+                     handle_key(app, key, keybinds);
+                     if let Some(path) = app.take_pending_editor_path() {
+                         open_path_in_editor(&path)?;
++                        terminal.clear()?;
+                     }
+                     dirty = true;
+                 }

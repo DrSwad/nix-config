@@ -1,10 +1,14 @@
 { lib, pkgs, ... }:
 
 let
-  # Upstream hardcodes O-created notes under projects/tuxedo-tasks/ (as of
-  # 2026.8.1). The skipped tests assert that path. Drop this override if it
-  # becomes configurable.
   tuxedo-unwrapped = pkgs.unstable.tuxedo.overrideAttrs (old: {
+    # Upstream #151 (fixes #99, blank list after closing the editor), merged
+    # after 2026.8.1. Drop once a release includes it.
+    patches = (old.patches or [ ]) ++ [ ./tuxedo-redraw-after-editor.patch ];
+
+    # Upstream hardcodes O-created notes under projects/tuxedo-tasks/ (as of
+    # 2026.8.1). The skipped tests assert that path. Drop this if it becomes
+    # configurable.
     postPatch = (old.postPatch or "") + ''
       substituteInPlace src/note.rs \
         --replace-fail 'format!("{DEFAULT_NOTES_SUBDIR}/{slug}.md")' 'format!("{slug}.md")'
