@@ -19,6 +19,8 @@ in
       User = sol.user;
       IdentityFile = sol.identityFile;
       ProxyJump = sol.name;
+      # Each job can land on a new node
+      StrictHostKeyChecking = "accept-new";
     };
 
     home.packages = [
